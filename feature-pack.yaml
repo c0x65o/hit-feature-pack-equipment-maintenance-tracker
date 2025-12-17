@@ -1,0 +1,252 @@
+# Feature Pack: equipment-maintenance-tracker
+# Industrial equipment maintenance tracking with pump lifecycle management, status transitions, field data collection, and analytics
+
+name: equipment-maintenance-tracker
+version: 1.0.0
+description: Industrial equipment maintenance tracking with pump lifecycle management, status transitions, field data collection, and analytics
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROUTES - Frontend page routes
+# ─────────────────────────────────────────────────────────────────────────────
+routes:
+  - path: /equipment-maintenance-tracker
+    page: Dashboard
+    roles: []  # Empty = authenticated users only
+    
+  - path: /equipment-maintenance-tracker/pump/[id]
+    page: PumpDetail
+    roles: []
+    
+  - path: /equipment-maintenance-tracker/pump/[id]/analytics
+    page: PumpAnalytics
+    roles: []
+    
+  - path: /equipment-maintenance-tracker/analytics
+    page: PlantAnalytics
+    roles: []  # Role checking done in component
+    
+  - path: /equipment-maintenance-tracker/inventory
+    page: Inventory
+    roles: []
+    
+  - path: /equipment-maintenance-tracker/settings
+    page: Settings
+    roles: [admin]  # Admin only
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NAVIGATION - Sidebar/topbar items
+# ─────────────────────────────────────────────────────────────────────────────
+nav:
+  - id: equipment-maintenance-tracker
+    label: Equipment Maintenance
+    path: /equipment-maintenance-tracker
+    icon: Wrench
+    group: main
+    showWhen: authenticated
+    weight: 100
+    children:
+      - id: equipment-maintenance-tracker-dashboard
+        label: Dashboard
+        path: /equipment-maintenance-tracker
+        icon: Home
+        weight: 100
+        showWhen: authenticated
+      - id: equipment-maintenance-tracker-inventory
+        label: Inventory
+        path: /equipment-maintenance-tracker/inventory
+        icon: Package
+        weight: 110
+        showWhen: authenticated
+      - id: equipment-maintenance-tracker-analytics
+        label: Analytics
+        path: /equipment-maintenance-tracker/analytics
+        icon: BarChart3
+        weight: 120
+        showWhen: authenticated
+      - id: equipment-maintenance-tracker-settings
+        label: Settings
+        path: /equipment-maintenance-tracker/settings
+        icon: Settings
+        weight: 130
+        showWhen: authenticated
+        roles: [admin]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SCHEMA - Drizzle ORM table definitions
+# ─────────────────────────────────────────────────────────────────────────────
+schema:
+  source: src/schema/equipment.ts
+  exports: [
+    equipmentPlants,
+    equipmentLocations,
+    equipmentEquipment,
+    equipmentPumps,
+    equipmentActivityLog,
+    equipmentDiagnosticFindings,
+    equipmentCorrectiveActions,
+    equipmentMeasurementFields,
+    equipmentRebuildMeasurements,
+    EquipmentPlant,
+    EquipmentLocation,
+    EquipmentEquipment,
+    EquipmentPump,
+    EquipmentActivityLog,
+    EquipmentDiagnosticFinding,
+    EquipmentCorrectiveAction,
+    EquipmentMeasurementField,
+    EquipmentRebuildMeasurement,
+    InsertEquipmentPlant,
+    InsertEquipmentLocation,
+    InsertEquipmentEquipment,
+    InsertEquipmentPump,
+    InsertEquipmentActivityLog,
+    InsertEquipmentDiagnosticFinding,
+    InsertEquipmentCorrectiveAction,
+    InsertEquipmentMeasurementField,
+    InsertEquipmentRebuildMeasurement,
+    pumpStatuses,
+    PumpStatus,
+    assemblyStatuses,
+    AssemblyStatus,
+  ]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# API ROUTES - Backend endpoints (handler-based pattern - RECOMMENDED)
+# ─────────────────────────────────────────────────────────────────────────────
+api:
+  routes:
+    # Pumps
+    - path: /api/equipment-maintenance-tracker/pumps
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/pumps"
+      description: "List pumps (GET) or create pump (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/pumps/[id]
+      methods: [GET, PATCH, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/pumps-id"
+      description: "Get, update, or delete a pump"
+      
+    - path: /api/equipment-maintenance-tracker/pumps/[id]/status
+      methods: [POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/pumps-status"
+      description: "Update pump status"
+      
+    - path: /api/equipment-maintenance-tracker/pumps/[id]/field-data
+      methods: [POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/pumps-field-data"
+      description: "Enter field data (vibration, temperature, etc.)"
+      
+    - path: /api/equipment-maintenance-tracker/pumps/[id]/analytics
+      methods: [GET]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/pumps-analytics"
+      description: "Get pump analytics"
+      
+    # Activity Logs
+    - path: /api/equipment-maintenance-tracker/activity-logs
+      methods: [GET]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/activity-logs"
+      description: "Get activity logs (all or filtered by pumpId)"
+      
+    # Plants
+    - path: /api/equipment-maintenance-tracker/plants
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/plants"
+      description: "List plants (GET) or create plant (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/plants/[id]
+      methods: [PATCH]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/plants"
+      description: "Update plant"
+      
+    # Locations
+    - path: /api/equipment-maintenance-tracker/locations
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/locations"
+      description: "List locations (GET) or create location (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/locations/[id]
+      methods: [PATCH, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/locations"
+      description: "Update or delete location"
+      
+    # Equipment
+    - path: /api/equipment-maintenance-tracker/equipment
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/equipment"
+      description: "List equipment (GET) or create equipment (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/equipment/[id]
+      methods: [PATCH, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/equipment"
+      description: "Update or delete equipment"
+      
+    # Analytics
+    - path: /api/equipment-maintenance-tracker/analytics/plant
+      methods: [GET]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/analytics"
+      description: "Get plant-wide analytics"
+      
+    # Settings - Diagnostic Findings
+    - path: /api/equipment-maintenance-tracker/settings/diagnostic-findings
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/diagnostic-findings"
+      description: "List diagnostic findings (GET) or create (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/settings/diagnostic-findings/[id]
+      methods: [PUT, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/diagnostic-findings"
+      description: "Update or delete diagnostic finding"
+      
+    # Settings - Corrective Actions
+    - path: /api/equipment-maintenance-tracker/settings/corrective-actions
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/corrective-actions"
+      description: "List corrective actions (GET) or create (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/settings/corrective-actions/[id]
+      methods: [PUT, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/corrective-actions"
+      description: "Update or delete corrective action"
+      
+    # Settings - Measurement Fields
+    - path: /api/equipment-maintenance-tracker/settings/measurement-fields
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/measurement-fields"
+      description: "List measurement fields (GET) or create (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/settings/measurement-fields/[id]
+      methods: [PUT, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/measurement-fields"
+      description: "Update or delete measurement field"
+      
+    # Settings - Rebuild Measurements
+    - path: /api/equipment-maintenance-tracker/settings/rebuild-measurements
+      methods: [GET, POST]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/rebuild-measurements"
+      description: "List rebuild measurements (GET) or create (POST)"
+      
+    - path: /api/equipment-maintenance-tracker/settings/rebuild-measurements/[id]
+      methods: [PUT, DELETE]
+      handler: "@hit/feature-pack-equipment-maintenance-tracker/server/api/settings/rebuild-measurements"
+      description: "Update or delete rebuild measurement"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DEPENDENCIES
+# ─────────────────────────────────────────────────────────────────────────────
+requires:
+  modules: [auth]
+
+dependencies:
+  feature_packs:
+    - name: dashboard-shell
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CONFIGURATION OPTIONS
+# ─────────────────────────────────────────────────────────────────────────────
+config:
+  schema:
+    support_additional_roles:
+      type: boolean
+      default: false
+      description: "Enable extended role support (Admin, Supervisor, Mechanic, Vibration Technician, Inventory Manager, Pump Technician). When false, only admin and user roles are supported."
+
