@@ -2,7 +2,6 @@
 # Industrial equipment maintenance tracking with pump lifecycle management, status transitions, field data collection, and analytics
 
 name: equipment-maintenance-tracker
-version: 1.0.0
 description: Industrial equipment maintenance tracking with pump lifecycle management, status transitions, field data collection, and analytics
 
 # ─────────────────────────────────────────────────────────────────────────────
