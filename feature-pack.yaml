@@ -59,7 +59,7 @@ nav:
       - id: equipment-maintenance-tracker-analytics
         label: Analytics
         path: /equipment-maintenance-tracker/analytics
-        icon: BarChart3
+        icon: ChartBar
         weight: 120
         showWhen: authenticated
       - id: equipment-maintenance-tracker-settings
