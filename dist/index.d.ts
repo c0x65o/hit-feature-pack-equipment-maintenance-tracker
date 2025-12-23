@@ -9,5 +9,8 @@
  */
 export { Dashboard, DashboardPage, PumpDetail, PumpDetailPage, PumpAnalytics, PumpAnalyticsPage, PlantAnalytics, PlantAnalyticsPage, Inventory, InventoryPage, Settings, SettingsPage, } from './pages/index';
 export * from './components/index';
-export { equipmentPlants, equipmentLocations, equipmentEquipment, equipmentPumps, equipmentActivityLog, equipmentDiagnosticFindings, equipmentCorrectiveActions, equipmentMeasurementFields, equipmentRebuildMeasurements, type EquipmentPlant, type EquipmentLocation, type EquipmentEquipment, type EquipmentPump, type EquipmentActivityLog, type EquipmentDiagnosticFinding, type EquipmentCorrectiveAction, type EquipmentMeasurementField, type EquipmentRebuildMeasurement, type InsertEquipmentPlant, type InsertEquipmentLocation, type InsertEquipmentEquipment, type InsertEquipmentPump, type InsertEquipmentActivityLog, type InsertEquipmentDiagnosticFinding, type InsertEquipmentCorrectiveAction, type InsertEquipmentMeasurementField, type InsertEquipmentRebuildMeasurement, pumpStatuses, type PumpStatus, assemblyStatuses, type AssemblyStatus, } from './schema/equipment';
+export declare const pumpStatuses: readonly ["in_service", "standby", "out_of_service", "in_rebuild", "scrapped"];
+export declare const assemblyStatuses: readonly ["in_service", "standby", "out_of_service", "in_rebuild", "scrapped"];
+export type PumpStatus = typeof pumpStatuses[number];
+export type AssemblyStatus = typeof assemblyStatuses[number];
 //# sourceMappingURL=index.d.ts.map

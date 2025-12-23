@@ -27,38 +27,12 @@ export {
 // Components - exported individually for tree-shaking
 export * from './components/index';
 
-// Schema exports - for projects to import into their schema
-export {
-  equipmentPlants,
-  equipmentLocations,
-  equipmentEquipment,
-  equipmentPumps,
-  equipmentActivityLog,
-  equipmentDiagnosticFindings,
-  equipmentCorrectiveActions,
-  equipmentMeasurementFields,
-  equipmentRebuildMeasurements,
-  type EquipmentPlant,
-  type EquipmentLocation,
-  type EquipmentEquipment,
-  type EquipmentPump,
-  type EquipmentActivityLog,
-  type EquipmentDiagnosticFinding,
-  type EquipmentCorrectiveAction,
-  type EquipmentMeasurementField,
-  type EquipmentRebuildMeasurement,
-  type InsertEquipmentPlant,
-  type InsertEquipmentLocation,
-  type InsertEquipmentEquipment,
-  type InsertEquipmentPump,
-  type InsertEquipmentActivityLog,
-  type InsertEquipmentDiagnosticFinding,
-  type InsertEquipmentCorrectiveAction,
-  type InsertEquipmentMeasurementField,
-  type InsertEquipmentRebuildMeasurement,
-  pumpStatuses,
-  type PumpStatus,
-  assemblyStatuses,
-  type AssemblyStatus,
-} from './schema/equipment';
+// Schema exports - MOVED to @hit/feature-pack-equipment-maintenance-tracker/schema to avoid bundling drizzle-orm in client
+// Don't import from schema file at all - it pulls in drizzle-orm
+
+// Status constants - defined inline to avoid pulling in schema file
+export const pumpStatuses = ['in_service', 'standby', 'out_of_service', 'in_rebuild', 'scrapped'] as const;
+export const assemblyStatuses = ['in_service', 'standby', 'out_of_service', 'in_rebuild', 'scrapped'] as const;
+export type PumpStatus = typeof pumpStatuses[number];
+export type AssemblyStatus = typeof assemblyStatuses[number];
 

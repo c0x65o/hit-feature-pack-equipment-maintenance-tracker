@@ -11,5 +11,8 @@
 export { Dashboard, DashboardPage, PumpDetail, PumpDetailPage, PumpAnalytics, PumpAnalyticsPage, PlantAnalytics, PlantAnalyticsPage, Inventory, InventoryPage, Settings, SettingsPage, } from './pages/index';
 // Components - exported individually for tree-shaking
 export * from './components/index';
-// Schema exports - for projects to import into their schema
-export { equipmentPlants, equipmentLocations, equipmentEquipment, equipmentPumps, equipmentActivityLog, equipmentDiagnosticFindings, equipmentCorrectiveActions, equipmentMeasurementFields, equipmentRebuildMeasurements, pumpStatuses, assemblyStatuses, } from './schema/equipment';
+// Schema exports - MOVED to @hit/feature-pack-equipment-maintenance-tracker/schema to avoid bundling drizzle-orm in client
+// Don't import from schema file at all - it pulls in drizzle-orm
+// Status constants - defined inline to avoid pulling in schema file
+export const pumpStatuses = ['in_service', 'standby', 'out_of_service', 'in_rebuild', 'scrapped'];
+export const assemblyStatuses = ['in_service', 'standby', 'out_of_service', 'in_rebuild', 'scrapped'];
