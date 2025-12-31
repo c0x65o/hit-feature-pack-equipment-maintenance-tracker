@@ -1,6 +1,6 @@
 {
   "name": "@hit/feature-pack-equipment-maintenance-tracker",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Industrial equipment maintenance tracking with pump lifecycle management, status transitions, field data collection, and analytics",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -54,13 +54,13 @@
     "@hit/sdk": "file:../../hit-sdks/hit-sdk-typescript",
     "@hit/ui-kit": "file:../hit-ui-kit",
     "@types/node": "^20.0.0",
-    "@types/react": "^18.2.0",
+    "@types/react": "^18.0.0",
     "drizzle-orm": "^0.30.0",
     "drizzle-zod": "^0.5.0",
     "lucide-react": "^0.460.0",
     "next": "^14.2.5",
-    "typescript": "^5.9.3",
-    "zod": "^3.22.0"
+    "typescript": "^5.0.0",
+    "zod": "^3.24.1"
   },
   "keywords": [
     "hit",
