@@ -1,6 +1,6 @@
 {
   "name": "@hit/feature-pack-equipment-maintenance-tracker",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Industrial equipment maintenance tracking with pump lifecycle management, status transitions, field data collection, and analytics",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
